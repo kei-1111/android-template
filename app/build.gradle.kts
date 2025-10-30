@@ -41,6 +41,8 @@ android {
 }
 
 dependencies {
+    detektPlugins(libs.detekt.formatting)
+    detektPlugins(libs.detekt.compose)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
