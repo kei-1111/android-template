@@ -20,5 +20,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "android-template"
+includeBuild("build-logic")
 include(":app")
  
