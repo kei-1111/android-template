@@ -23,3 +23,12 @@ dependencies {
     compileOnly(libs.detekt.gradle)
     compileOnly(libs.kotlin.gradle)
 }
+
+gradlePlugin {
+    plugins {
+        register("detekt") {
+            id = libs.plugins.androidtemplate.detekt.get().pluginId
+            implementationClass = "DetektConventionPlugin"
+        }
+    }
+}
