@@ -12,7 +12,9 @@ import org.gradle.kotlin.dsl.getByType
 class DetektConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            apply(plugin = "io.gitlab.arturbosch.detekt")
+            with(pluginManager) {
+                apply("io.gitlab.arturbosch.detekt")
+            }
 
             dependencies {
                 detektPlugins(libs.library("detekt.compose"))
