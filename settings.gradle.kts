@@ -20,6 +20,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "android-template"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 includeBuild("build-logic")
 include(":app")
- 
