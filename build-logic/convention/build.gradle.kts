@@ -26,6 +26,10 @@ dependencies {
 
 gradlePlugin {
     plugins {
+        register("androidApplication") {
+            id = libs.plugins.androidtemplate.android.application.get().pluginId
+            implementationClass = "AndroidApplicationConventionPlugin"
+        }
         register("androidLibrary") {
             id = libs.plugins.androidtemplate.android.library.asProvider().get().pluginId
             implementationClass = "AndroidLibraryConventionPlugin"
