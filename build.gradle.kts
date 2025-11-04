@@ -6,5 +6,6 @@ plugins {
     alias(libs.plugins.detekt) apply false
 
     // Convention Plugins
+    alias(libs.plugins.androidtemplate.android.library) apply false
     alias(libs.plugins.androidtemplate.detekt) apply false
 }

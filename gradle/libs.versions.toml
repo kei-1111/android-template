@@ -46,5 +46,6 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 
 # Convention Plugins
+androidtemplate-android-library = { id = "androidtemplate.android.library" }
 androidtemplate-detekt = { id = "androidtemplate.detekt" }
 
