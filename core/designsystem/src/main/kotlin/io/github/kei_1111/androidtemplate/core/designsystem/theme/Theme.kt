@@ -1,4 +1,4 @@
-package io.github.kei_1111.core.designsystem.theme
+package io.github.kei_1111.androidtemplate.core.designsystem.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
