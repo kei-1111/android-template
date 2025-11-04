@@ -47,5 +47,6 @@ detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 
 # Convention Plugins
 androidtemplate-android-library = { id = "androidtemplate.android.library" }
+androidtemplate-android-library-compose = { id = "androidtemplate.android.library.compose" }
 androidtemplate-detekt = { id = "androidtemplate.detekt" }
 

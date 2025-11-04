@@ -27,8 +27,12 @@ dependencies {
 gradlePlugin {
     plugins {
         register("androidLibrary") {
-            id = libs.plugins.androidtemplate.android.library.get().pluginId
+            id = libs.plugins.androidtemplate.android.library.asProvider().get().pluginId
             implementationClass = "AndroidLibraryConventionPlugin"
+        }
+        register("androidLibraryCompose") {
+            id = libs.plugins.androidtemplate.android.library.compose.get().pluginId
+            implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
         register("detekt") {
             id = libs.plugins.androidtemplate.detekt.get().pluginId
