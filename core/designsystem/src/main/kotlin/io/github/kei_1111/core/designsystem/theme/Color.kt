@@ -1,4 +1,6 @@
-package io.github.kei_1111.androidtemplate.ui.theme
+@file:Suppress("MagicNumber")
+
+package io.github.kei_1111.core.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 
