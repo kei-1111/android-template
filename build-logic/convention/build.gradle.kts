@@ -30,6 +30,10 @@ gradlePlugin {
             id = libs.plugins.androidtemplate.android.application.get().pluginId
             implementationClass = "AndroidApplicationConventionPlugin"
         }
+        register("androidFeature") {
+            id = libs.plugins.androidtemplate.android.feature.get().pluginId
+            implementationClass = "AndroidFeatureConventionPlugin"
+        }
         register("androidLibrary") {
             id = libs.plugins.androidtemplate.android.library.asProvider().get().pluginId
             implementationClass = "AndroidLibraryConventionPlugin"
