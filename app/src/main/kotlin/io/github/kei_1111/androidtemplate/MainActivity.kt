@@ -16,7 +16,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             AndroidTemplateTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-
                 }
             }
         }
