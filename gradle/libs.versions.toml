@@ -1,5 +1,6 @@
 [versions]
 agp = "8.12.3"
+koin = "4.1.0"
 kotlin = "2.0.21"
 coreKtx = "1.17.0"
 detekt = "1.23.8"
@@ -33,6 +34,8 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 detekt-compose = { group = "io.nlopez.compose.rules", name = "detekt", version.ref = "detektCompose" }
 detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref = "koin" }
 
 # Use build-logic
 android-gradle = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
