@@ -1,0 +1,81 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    permissions:
+      contents: read
+      pull-requests: write
+      checks: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Run unit tests
+        run: ./gradlew test
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: '**/build/reports/tests/**'
+          retention-days: 7
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: '**/build/test-results/**/*.xml'
+          retention-days: 7
+
+      - name: Check test results
+        if: always()
+        run: |
+          echo "Checking test results..."
+          TEST_RESULTS=$(find . -name "TEST-*.xml" -type f)
+
+          if [ -z "$TEST_RESULTS" ]; then
+            echo "::warning::No test results found"
+            exit 0
+          fi
+
+          HAS_FAILURES=false
+          for result in $TEST_RESULTS; do
+            echo "Checking $result"
+            if grep -q 'failures="[1-9]' "$result" 2>/dev/null || grep -q 'errors="[1-9]' "$result" 2>/dev/null; then
+              echo "::error::Test failures found in $result"
+              HAS_FAILURES=true
+            fi
+          done
+
+          if [ "$HAS_FAILURES" = true ]; then
+            echo "::error::Tests failed. Check the reports for details."
+            exit 1
+          else
+            echo "✓ All tests passed"
+          fi
