@@ -227,10 +227,8 @@ if [ -f "$PROJECT_ROOT/scripts/create-module.sh" ]; then
     replace_in_file "$PROJECT_ROOT/scripts/create-module.sh" "${OLD_PLUGIN_ID}\\." "${NEW_PLUGIN_ID}."
 fi
 
-if [ -f "$PROJECT_ROOT/scripts/README.md" ]; then
-    echo "  Updating: scripts/README.md"
-    replace_in_file "$PROJECT_ROOT/scripts/README.md" "$OLD_PACKAGE" "$NEW_PACKAGE"
-fi
+# scripts/README.md is documentation for the conversion script itself
+# It will be removed along with the conversion script at the end
 
 echo -e "${GREEN}✓ Package name replacement complete${NC}"
 echo ""
@@ -274,11 +272,16 @@ echo ""
 # Phase 3: Rename theme and application class
 echo -e "${BLUE}[3/4] Updating theme and class names...${NC}"
 
-# Find and replace theme name in Kotlin files
+# Find and replace theme name and application class in Kotlin files
 find "$PROJECT_ROOT" -type f -name "*.kt" | while read file; do
+    # Update theme name if present
     if grep -q "$OLD_THEME_NAME" "$file" 2>/dev/null; then
         echo "  Updating theme in: $file"
         replace_in_file "$file" "${OLD_THEME_NAME}Theme" "${NEW_THEME_NAME}Theme"
+    fi
+    # Update application class name if present
+    if grep -q "$OLD_APP_CLASS" "$file" 2>/dev/null; then
+        echo "  Updating application class in: $file"
         replace_in_file "$file" "$OLD_APP_CLASS" "$NEW_APP_CLASS"
     fi
 done
@@ -289,8 +292,8 @@ echo ""
 # Phase 4: Rename Application class file
 echo -e "${BLUE}[4/4] Renaming Application class file...${NC}"
 
-# Find Application class file (should be *Application.kt)
-APP_FILE=$(find "$PROJECT_ROOT/app/src" -type f -name "*Application.kt" | head -n 1)
+# Find Application class file by the old class name
+APP_FILE=$(find "$PROJECT_ROOT/app/src" -type f -name "${OLD_APP_CLASS}.kt" | head -n 1)
 
 if [ -n "$APP_FILE" ]; then
     APP_DIR="$(dirname "$APP_FILE")"
@@ -353,11 +356,17 @@ echo -e "  Package: ${GREEN}${NEW_PACKAGE}${NC}"
 echo -e "  Name:    ${GREEN}${NEW_PROJECT_NAME}${NC}"
 echo ""
 
-# Self-destruct: Remove this conversion script
+# Self-destruct: Remove this conversion script and its documentation
 SCRIPT_PATH="${BASH_SOURCE[0]}"
 if [ -f "$SCRIPT_PATH" ]; then
-    echo -e "${BLUE}Removing conversion script...${NC}"
+    echo -e "${BLUE}Removing conversion script and documentation...${NC}"
     rm -- "$SCRIPT_PATH"
-    echo -e "${GREEN}✓ Conversion script removed${NC}"
+
+    # Also remove the README.md that documents this conversion script
+    if [ -f "$PROJECT_ROOT/scripts/README.md" ]; then
+        rm -- "$PROJECT_ROOT/scripts/README.md"
+    fi
+
+    echo -e "${GREEN}✓ Conversion script and documentation removed${NC}"
     echo ""
 fi
