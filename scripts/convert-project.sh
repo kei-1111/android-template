@@ -213,8 +213,9 @@ fi
 find "$PROJECT_ROOT" -type f \( -name "*.xml" -o -name "AndroidManifest.xml" \) | while read file; do
     echo "  Updating: $file"
     replace_in_file "$file" "$OLD_PROJECT_NAME" "$NEW_PROJECT_NAME"
-    replace_in_file "$file" "$OLD_THEME_NAME" "$NEW_THEME_NAME"
+    # Replace application class first (longer string) to avoid partial matches with theme name
     replace_in_file "$file" "$OLD_APP_CLASS" "$NEW_APP_CLASS"
+    replace_in_file "$file" "$OLD_THEME_NAME" "$NEW_THEME_NAME"
 done
 
 # Replace in scripts
