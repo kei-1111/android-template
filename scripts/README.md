@@ -178,14 +178,14 @@ Enter module name: network
 
 Creating module:
   Path: core/network
-  Package: com.example.myapp.core.network
+  Package: io.github.kei_1111.androidtemplate.core.network
   Plugin: androidtemplate.android.library
 Continue? [y/N]: y
 ```
 
 これにより、以下が作成されます：
 - `core/network/build.gradle.kts`
-- `core/network/src/main/kotlin/com.example.myapp/core/network/`
+- `core/network/src/main/kotlin/io/github/kei_1111/androidtemplate/core/network/`
 - `settings.gradle.kts` に `include(":core:network")` が追加される
 
 **Note**:
@@ -205,7 +205,7 @@ Enter module name: login
 
 Creating module:
   Path: feature/login
-  Package: com.example.myapp.feature.login
+  Package: io.github.kei_1111.androidtemplate.feature.login
   Plugin: androidtemplate.android.feature
 Continue? [y/N]: y
 ```
