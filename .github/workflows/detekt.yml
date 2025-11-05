@@ -1,0 +1,73 @@
+name: Detekt
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  detekt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    permissions:
+      contents: read
+      pull-requests: write
+      checks: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Run Detekt
+        run: ./gradlew detekt
+
+      - name: Upload Detekt HTML reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: detekt-reports
+          path: '**/build/reports/detekt/detekt.html'
+          retention-days: 7
+
+      - name: Check Detekt results
+        if: always()
+        run: |
+          echo "Checking Detekt results..."
+          DETEKT_REPORTS=$(find . -name "detekt.xml" -type f)
+
+          if [ -z "$DETEKT_REPORTS" ]; then
+            echo "::warning::No Detekt reports found"
+            exit 0
+          fi
+
+          HAS_ERRORS=false
+          for report in $DETEKT_REPORTS; do
+            echo "Checking $report"
+            if grep -q '<error' "$report" 2>/dev/null; then
+              echo "::error::Detekt found issues in $report"
+              HAS_ERRORS=true
+            fi
+          done
+
+          if [ "$HAS_ERRORS" = true ]; then
+            echo "::error::Detekt analysis failed. Check the reports for details."
+            exit 1
+          else
+            echo "✓ Detekt analysis passed"
+          fi
