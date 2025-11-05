@@ -2,6 +2,136 @@
 
 このディレクトリには、プロジェクト開発を効率化するスクリプトが含まれています。
 
+## convert-project.sh
+
+テンプレートプロジェクトを新しいプロジェクトに変換するスクリプトです。このスクリプトは**一度だけ実行**し、テンプレートから新規プロジェクトを作成する際に使用します。
+
+### 使い方
+
+```bash
+./scripts/convert-project.sh
+```
+
+### 機能
+
+このスクリプトは以下の変換を対話形式で行います：
+
+1. **パッケージ名の変更**
+   - 形式: `com.example.myapp` (小文字、ドット区切り)
+   - すべてのKotlinファイル、ビルドファイル、XMLファイルを更新
+
+2. **プロジェクト名の変更**
+   - 形式: `my-app` (小文字、ハイフン区切り)
+   - `settings.gradle.kts` などの設定ファイルを更新
+
+3. **Convention Plugin IDの変更**
+   - 形式: `myapp` (小文字、特殊文字なし)
+   - すべてのプラグイン定義とビルドファイルを更新
+
+4. **テーマ名の変更**
+   - 形式: `MyApp` (PascalCase)
+   - XMLリソースファイルとComposeテーマファイルを更新
+
+5. **Applicationクラス名の変更**
+   - 形式: `MyAppApplication` (PascalCase)
+   - AndroidManifestとApplicationクラスファイルを更新
+
+### 実行フロー
+
+```bash
+$ ./scripts/convert-project.sh
+
+╔════════════════════════════════════════════════════════════╗
+║   Android Template → New Project Conversion Script        ║
+╔════════════════════════════════════════════════════════════╗
+
+1. New Package Name
+   Format: com.example.myapp (lowercase, dot-separated)
+   Current: io.github.kei_1111.androidtemplate
+   Enter new package name: com.example.myapp
+
+2. New Project Name
+   Format: my-app (lowercase, hyphen-separated)
+   Current: android-template
+   Enter new project name: my-app
+
+3. New Convention Plugin ID
+   Format: myapp (lowercase, no special characters)
+   Current: androidtemplate
+   Enter new plugin ID: myapp
+
+4. New Theme Name
+   Format: MyApp (PascalCase)
+   Current: AndroidTemplate
+   Enter new theme name: MyApp
+
+5. New Application Class Name
+   Format: MyAppApplication (PascalCase, typically ends with 'Application')
+   Current: AndroidTemplateApplication
+   Enter new application class name: MyAppApplication
+
+════════════════════════════════════════════════════════════
+Summary of Changes
+════════════════════════════════════════════════════════════
+Package Name:       io.github.kei_1111.androidtemplate → com.example.myapp
+Project Name:       android-template → my-app
+Plugin ID:          androidtemplate → myapp
+Theme Name:         AndroidTemplate → MyApp
+Application Class:  AndroidTemplateApplication → MyAppApplication
+════════════════════════════════════════════════════════════
+
+Continue with conversion? [y/N]: y
+```
+
+### 変更される内容
+
+- **22+ Kotlinソースファイル** - パッケージ宣言とimport文
+- **6+ build.gradle.ktsファイル** - namespace、group設定
+- **5つのプラグインID定義** - libs.versions.toml内
+- **14+ Convention Pluginファイル** - プラグインID参照
+- **3つのXMLリソースファイル** - テーマ名、アプリ名
+- **2つのスクリプト/ドキュメント** - create-module.sh、README.md
+- **ディレクトリ構造** - パッケージフォルダの再編成
+
+### 重要な注意事項
+
+1. **実行は一度だけ**
+   - このスクリプトは新規プロジェクト作成時に一度だけ実行します
+   - 実行後、スクリプトは自動的に削除されます
+
+2. **実行前の準備**
+   - 未コミットの変更がある場合は、事前にコミットしてください
+   - 万が一に備えてプロジェクト全体のバックアップを推奨します
+
+3. **実行後の手順**
+   - プロジェクトルートディレクトリ名を手動で変更（必要に応じて）
+   - Android Studioでプロジェクトを同期
+   - `./gradlew clean build` でビルドが通ることを確認
+   - README.md を自分のプロジェクト用に更新
+
+### 自動削除機能
+
+このスクリプトは実行完了後、自分自身を自動的に削除します。これにより：
+- テンプレートから移行後の不要なファイルが残りません
+- 新しいプロジェクトが綺麗な状態に保たれます
+- 誤って2回実行してしまうリスクがありません
+
+### トラブルシューティング
+
+**Q: スクリプトの途中でキャンセルしたい**
+A: 確認プロンプト（Continue with conversion? [y/N]）で `N` を入力してください。変更は適用されません。
+
+**Q: 変換後にビルドエラーが出る**
+A: Android Studioでプロジェクトを同期し、`./gradlew clean build` を実行してください。エラーが続く場合は、パッケージ名の置換が正しく行われているか確認してください。
+
+**Q: ディレクトリ名を変更し忘れた**
+A: 以下のコマンドで手動変更できます：
+```bash
+cd ..
+mv 現在のディレクトリ名 新しいディレクトリ名
+cd 新しいディレクトリ名
+```
+
 ## create-module.sh
 
 新しいAndroidモジュールを作成するスクリプトです。
