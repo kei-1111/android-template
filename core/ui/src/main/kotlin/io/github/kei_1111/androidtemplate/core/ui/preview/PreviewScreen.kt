@@ -60,4 +60,4 @@ import androidx.compose.ui.tooling.preview.Preview
     uiMode = Configuration.UI_MODE_NIGHT_YES,
     fontScale = 1.5f,
 )
-annotation class ScreenPreview
+annotation class PreviewScreen

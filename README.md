@@ -43,12 +43,12 @@ A modern and scalable Android application template. Provides production-ready mu
 
 Two types of preview annotations for efficient UI development:
 
-**ScreenPreview** - For screen-level composables (8 previews)
+**PreviewScreen** - For screen-level composables (8 previews)
 - Light/Dark themes × Phone/Tablet devices × Standard/Large font scales
 - Shows system UI and device frames
 - Ensures responsive design and accessibility
 
-**ComponentPreview** - For component-level composables (4 previews)
+**PreviewComponent** - For component-level composables (4 previews)
 - Light/Dark themes × Standard/Large font scales
 - Quick preview without device frames
 - Focuses on component behavior
@@ -280,12 +280,12 @@ Contributions are welcome! Please feel free to submit issues and pull requests.
 
 効率的なUI開発のための2種類のプレビューアノテーション：
 
-**ScreenPreview** - 画面レベルのComposable用（8パターン）
+**PreviewScreen** - 画面レベルのComposable用（8パターン）
 - ライト/ダークテーマ × スマホ/タブレット × 標準/大フォント
 - システムUIとデバイスフレームを表示
 - レスポンシブデザインとアクセシビリティを確保
 
-**ComponentPreview** - コンポーネントレベルのComposable用（4パターン）
+**PreviewComponent** - コンポーネントレベルのComposable用（4パターン）
 - ライト/ダークテーマ × 標準/大フォント
 - デバイスフレームなしの素早いプレビュー
 - コンポーネントの動作に焦点
