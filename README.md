@@ -10,11 +10,11 @@
 
 ### Overview
 
-A modern Android application template with a modular architecture, ready for production use. This template provides a solid foundation for building scalable Android applications with best practices, automated tooling, and comprehensive development utilities.
+A modern and scalable Android application template. Provides production-ready multi-module environment, best practices, automated tooling, and comprehensive development utilities.
 
 **Design Philosophy:**
 - Flexible architecture supporting both standalone Android projects and KMP (Kotlin Multiplatform) library integration
-- Modern tech stack with Jetpack Compose and Material 3
+- Modern tech stack with Jetpack Compose
 - Comprehensive development tooling and automation
 - Accessibility-first approach with built-in preview support
 
@@ -24,12 +24,6 @@ A modern Android application template with a modular architecture, ready for pro
 - **Modular Structure**: Clean separation with `app`, `core`, and `feature` modules
 - **Convention Plugins**: Reusable Gradle configuration with type-safe accessors
 - **Build Optimization**: Parallel execution, configuration cache, and optimized R classes
-
-#### 🎨 Design System
-- **Material 3**: Latest Material Design components
-- **Dynamic Colors**: Android 12+ dynamic theming support
-- **Theme System**: Light/Dark mode with customizable color schemes
-- **Preview Annotations**: Comprehensive preview support for development
 
 #### 🔧 Developer Tools
 - **Automation Scripts**:
@@ -82,7 +76,28 @@ git clone https://github.com/kei-1111/android-template.git
 cd android-template
 ```
 
-#### 2. Convert to Your Project
+#### 2. Remove Git History (Optional)
+
+If you want to start with a clean Git history for your new project:
+
+```bash
+./scripts/remove-git.sh
+```
+
+This will:
+- Remove the template's Git history
+- Allow you to start fresh with your own repository
+- Self-delete after completion
+
+After this, initialize a new Git repository:
+
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+```
+
+#### 3. Convert to Your Project
 
 Run the conversion script to customize the template:
 
@@ -97,7 +112,7 @@ The script will interactively ask for:
 - Theme name (e.g., `MyApp`)
 - Application class name (e.g., `MyAppApplication`)
 
-#### 3. Sync and Build
+#### 4. Sync and Build
 
 Open the project in Android Studio and sync Gradle:
 
@@ -105,7 +120,7 @@ Open the project in Android Studio and sync Gradle:
 ./gradlew clean build
 ```
 
-#### 4. Start Developing
+#### 5. Start Developing
 
 Create new modules using the module creation script:
 
@@ -232,11 +247,11 @@ Contributions are welcome! Please feel free to submit issues and pull requests.
 
 ### 概要
 
-モダンでスケーラブルなAndroidアプリケーションテンプレート。本番環境で使用可能なモジュラーアーキテクチャ、ベストプラクティス、自動化ツール、包括的な開発ユーティリティを提供します。
+モダンでスケーラブルなAndroidアプリケーションテンプレート。本番環境で使用可能なマルチモジュール環境、ベストプラクティス、自動化ツール、包括的な開発ユーティリティを提供します。
 
 **設計思想：**
 - 単体のAndroidプロジェクトとKMP（Kotlin Multiplatform）ライブラリ統合の両方に対応できる柔軟なアーキテクチャ
-- Jetpack ComposeとMaterial 3を使用したモダンな技術スタック
+- Jetpack Composeを使用したモダンな技術スタック
 - 包括的な開発ツールと自動化
 - アクセシビリティファーストのアプローチとプレビューサポート
 
@@ -246,12 +261,6 @@ Contributions are welcome! Please feel free to submit issues and pull requests.
 - **モジュール構造**: `app`、`core`、`feature`モジュールによる明確な分離
 - **Convention Plugins**: 型安全なアクセサによる再利用可能なGradle設定
 - **ビルド最適化**: 並列実行、設定キャッシュ、最適化されたRクラス
-
-#### 🎨 デザインシステム
-- **Material 3**: 最新のMaterial Designコンポーネント
-- **Dynamic Colors**: Android 12+の動的テーマ対応
-- **テーマシステム**: カスタマイズ可能なライト/ダークモード
-- **プレビューアノテーション**: 開発時の包括的なプレビューサポート
 
 #### 🔧 開発者ツール
 - **自動化スクリプト**:
@@ -304,7 +313,28 @@ git clone https://github.com/kei-1111/android-template.git
 cd android-template
 ```
 
-#### 2. プロジェクトに変換
+#### 2. Git履歴の削除（オプション）
+
+新しいプロジェクトとしてクリーンなGit履歴で始めたい場合：
+
+```bash
+./scripts/remove-git.sh
+```
+
+このスクリプトは：
+- テンプレートのGit履歴を削除
+- 新しいリポジトリとして始められる
+- 実行後に自動削除される
+
+実行後、新しいGitリポジトリを初期化：
+
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+```
+
+#### 3. プロジェクトに変換
 
 変換スクリプトを実行してテンプレートをカスタマイズ：
 
@@ -319,7 +349,7 @@ cd android-template
 - テーマ名（例：`MyApp`）
 - Applicationクラス名（例：`MyAppApplication`）
 
-#### 3. 同期とビルド
+#### 4. 同期とビルド
 
 Android Studioでプロジェクトを開き、Gradleを同期：
 
@@ -327,7 +357,7 @@ Android Studioでプロジェクトを開き、Gradleを同期：
 ./gradlew clean build
 ```
 
-#### 4. 開発開始
+#### 5. 開発開始
 
 モジュール作成スクリプトで新しいモジュールを作成：
 
