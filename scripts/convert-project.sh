@@ -151,6 +151,7 @@ echo "  • 5 plugin ID definitions in libs.versions.toml"
 echo "  • 14+ convention plugin files"
 echo "  • 3 XML resource files"
 echo "  • 2 script/documentation files"
+echo "  • CLAUDE.md (project documentation)"
 echo "  • Directory structure (package folders)"
 echo ""
 
@@ -230,6 +231,16 @@ fi
 
 # scripts/README.md is documentation for the conversion script itself
 # It will be removed along with the conversion script at the end
+
+# Replace in CLAUDE.md
+if [ -f "$PROJECT_ROOT/CLAUDE.md" ]; then
+    echo "  Updating: CLAUDE.md"
+    replace_in_file "$PROJECT_ROOT/CLAUDE.md" "$OLD_PACKAGE" "$NEW_PACKAGE"
+    replace_in_file "$PROJECT_ROOT/CLAUDE.md" "$OLD_PLUGIN_ID" "$NEW_PLUGIN_ID"
+    # Replace theme name (be careful with order - longer strings first)
+    replace_in_file "$PROJECT_ROOT/CLAUDE.md" "${OLD_THEME_NAME}Theme" "${NEW_THEME_NAME}Theme"
+    replace_in_file "$PROJECT_ROOT/CLAUDE.md" "$OLD_THEME_NAME" "$NEW_THEME_NAME"
+fi
 
 echo -e "${GREEN}✓ Package name replacement complete${NC}"
 echo ""
