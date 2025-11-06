@@ -220,27 +220,9 @@ Run Detekt before committing:
 ./gradlew detekt
 ```
 
-Auto-format code:
-
-```bash
-./gradlew detekt --auto-correct
-```
-
-### KMP Support (Future)
-
-This template is designed to work with both:
-- **Standalone Android projects**
-- **KMP libraries** for shared state management
-
-The modular architecture allows easy integration with KMP libraries for cross-platform logic while keeping Android-specific UI code separate.
-
 ### Contributing
 
 Contributions are welcome! Please feel free to submit issues and pull requests.
-
-### License
-
-[Add your license here]
 
 ---
 
@@ -461,27 +443,9 @@ dependencies {
 ./gradlew detekt
 ```
 
-コードの自動フォーマット：
-
-```bash
-./gradlew detekt --auto-correct
-```
-
-### KMPサポート（将来）
-
-このテンプレートは以下の両方に対応するよう設計されています：
-- **単体のAndroidプロジェクト**
-- **KMPライブラリ**による共有状態管理
-
-モジュラーアーキテクチャにより、クロスプラットフォームロジック用のKMPライブラリとAndroid固有のUIコードを分離して統合できます。
-
 ### コントリビューション
 
 コントリビューションを歓迎します！IssueやPull Requestをお気軽に提出してください。
-
-### ライセンス
-
-[ライセンスをここに追加]
 
 ---
 
