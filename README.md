@@ -76,7 +76,22 @@ git clone https://github.com/kei-1111/android-template.git
 cd android-template
 ```
 
-#### 2. Remove Git History (Optional)
+#### 2. Convert to Your Project
+
+Run the conversion script to customize the template:
+
+```bash
+./scripts/convert-project.sh
+```
+
+The script will interactively ask for:
+- Package name (e.g., `com.example.myapp`)
+- Project name (e.g., `my-app`)
+- Convention plugin ID (e.g., `myapp`)
+- Theme name (e.g., `MyApp`)
+- Application class name (e.g., `MyAppApplication`)
+
+#### 3. Remove Git History (Optional)
 
 If you want to start with a clean Git history for your new project:
 
@@ -96,21 +111,6 @@ git init
 git add .
 git commit -m "Initial commit"
 ```
-
-#### 3. Convert to Your Project
-
-Run the conversion script to customize the template:
-
-```bash
-./scripts/convert-project.sh
-```
-
-The script will interactively ask for:
-- Package name (e.g., `com.example.myapp`)
-- Project name (e.g., `my-app`)
-- Convention plugin ID (e.g., `myapp`)
-- Theme name (e.g., `MyApp`)
-- Application class name (e.g., `MyAppApplication`)
 
 #### 4. Sync and Build
 
@@ -313,7 +313,22 @@ git clone https://github.com/kei-1111/android-template.git
 cd android-template
 ```
 
-#### 2. Git履歴の削除（オプション）
+#### 2. プロジェクトに変換
+
+変換スクリプトを実行してテンプレートをカスタマイズ：
+
+```bash
+./scripts/convert-project.sh
+```
+
+スクリプトは以下を対話的に入力させます：
+- パッケージ名（例：`com.example.myapp`）
+- プロジェクト名（例：`my-app`）
+- Convention plugin ID（例：`myapp`）
+- テーマ名（例：`MyApp`）
+- Applicationクラス名（例：`MyAppApplication`）
+
+#### 3. Git履歴の削除（オプション）
 
 新しいプロジェクトとしてクリーンなGit履歴で始めたい場合：
 
@@ -333,21 +348,6 @@ git init
 git add .
 git commit -m "Initial commit"
 ```
-
-#### 3. プロジェクトに変換
-
-変換スクリプトを実行してテンプレートをカスタマイズ：
-
-```bash
-./scripts/convert-project.sh
-```
-
-スクリプトは以下を対話的に入力させます：
-- パッケージ名（例：`com.example.myapp`）
-- プロジェクト名（例：`my-app`）
-- Convention plugin ID（例：`myapp`）
-- テーマ名（例：`MyApp`）
-- Applicationクラス名（例：`MyAppApplication`）
 
 #### 4. 同期とビルド
 
