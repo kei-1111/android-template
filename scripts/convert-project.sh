@@ -235,6 +235,12 @@ fi
 # Replace in CLAUDE.md
 if [ -f "$PROJECT_ROOT/CLAUDE.md" ]; then
     echo "  Updating: CLAUDE.md"
+    # Convert package names to directory paths for file path replacements
+    OLD_PACKAGE_PATH_CLAUDE="${OLD_PACKAGE//.//}"
+    NEW_PACKAGE_PATH_CLAUDE="${NEW_PACKAGE//.//}"
+    # Replace directory paths first (longer/more specific pattern)
+    replace_in_file "$PROJECT_ROOT/CLAUDE.md" "$OLD_PACKAGE_PATH_CLAUDE" "$NEW_PACKAGE_PATH_CLAUDE"
+    # Then replace package names (dot-separated)
     replace_in_file "$PROJECT_ROOT/CLAUDE.md" "$OLD_PACKAGE" "$NEW_PACKAGE"
     replace_in_file "$PROJECT_ROOT/CLAUDE.md" "$OLD_PLUGIN_ID" "$NEW_PLUGIN_ID"
     # Replace theme name (be careful with order - longer strings first)
