@@ -76,7 +76,7 @@ Create a new repository from this template on GitHub:
 4. Click **"Create repository"**
 5. Clone your new repository locally:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+   git clone git@github.com:YOUR_USERNAME/YOUR_REPO_NAME.git
    cd YOUR_REPO_NAME
    ```
 
@@ -289,7 +289,7 @@ GitHubでこのテンプレートから新しいリポジトリを作成：
 4. **"Create repository"** をクリック
 5. 新しいリポジトリをローカルにクローン：
    ```bash
-   git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+   git clone git@github.com:YOUR_USERNAME/YOUR_REPO_NAME.git
    cd YOUR_REPO_NAME
    ```
 
