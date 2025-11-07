@@ -85,6 +85,7 @@ Create a new repository from this template on GitHub:
 Run the conversion script to customize the template:
 
 ```bash
+chmod +x scripts/convert-project.sh
 ./scripts/convert-project.sh
 ```
 
@@ -108,6 +109,7 @@ Open the project in Android Studio and sync Gradle:
 Create new modules using the module creation script:
 
 ```bash
+chmod +x scripts/create-module.sh
 ./scripts/create-module.sh
 ```
 
@@ -298,6 +300,7 @@ GitHubでこのテンプレートから新しいリポジトリを作成：
 変換スクリプトを実行してテンプレートをカスタマイズ：
 
 ```bash
+chmod +x scripts/convert-project.sh
 ./scripts/convert-project.sh
 ```
 
@@ -321,6 +324,7 @@ Android Studioでプロジェクトを開き、Gradleを同期：
 モジュール作成スクリプトで新しいモジュールを作成：
 
 ```bash
+chmod +x scripts/create-module.sh
 ./scripts/create-module.sh
 ```
 
