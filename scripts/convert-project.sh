@@ -195,7 +195,8 @@ done
 find "$PROJECT_ROOT" -type f -name "build.gradle.kts" | while read file; do
     echo "  Updating: $file"
     replace_in_file "$file" "$OLD_PACKAGE" "$NEW_PACKAGE"
-    replace_in_file "$file" "$OLD_PLUGIN_ID" "$NEW_PLUGIN_ID"
+    # Replace plugin IDs only in plugin references (libs.plugins.xxx)
+    replace_in_file "$file" "libs\\.plugins\\.${OLD_PLUGIN_ID}" "libs.plugins.${NEW_PLUGIN_ID}"
 done
 
 # Replace in libs.versions.toml
@@ -216,7 +217,8 @@ find "$PROJECT_ROOT" -type f \( -name "*.xml" -o -name "AndroidManifest.xml" \) 
     replace_in_file "$file" "$OLD_PROJECT_NAME" "$NEW_PROJECT_NAME"
     # Replace application class first (longer string) to avoid partial matches with theme name
     replace_in_file "$file" "$OLD_APP_CLASS" "$NEW_APP_CLASS"
-    replace_in_file "$file" "$OLD_THEME_NAME" "$NEW_THEME_NAME"
+    # Replace theme name only in style references (Theme.xxx pattern) to avoid double replacement
+    replace_in_file "$file" "Theme\\.${OLD_THEME_NAME}" "Theme.${NEW_THEME_NAME}"
 done
 
 # Replace in scripts
