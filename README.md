@@ -29,7 +29,6 @@ A modern and scalable Android application template. Provides production-ready mu
 - **Automation Scripts**:
   - `convert-project.sh` - Convert template to your project
   - `create-module.sh` - Generate new modules interactively
-  - `remove-git.sh` - Clean Git history
 - **Code Quality**: Detekt with Compose rules and auto-formatting
 - **CI/CD**: GitHub Actions workflows for testing and static analysis
 
@@ -91,28 +90,7 @@ The script will interactively ask for:
 - Theme name (e.g., `MyApp`)
 - Application class name (e.g., `MyAppApplication`)
 
-#### 3. Remove Git History (Optional)
-
-If you want to start with a clean Git history for your new project:
-
-```bash
-./scripts/remove-git.sh
-```
-
-This will:
-- Remove the template's Git history
-- Allow you to start fresh with your own repository
-- Self-delete after completion
-
-After this, initialize a new Git repository:
-
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-```
-
-#### 4. Sync and Build
+#### 3. Sync and Build
 
 Open the project in Android Studio and sync Gradle:
 
@@ -120,7 +98,7 @@ Open the project in Android Studio and sync Gradle:
 ./gradlew clean build
 ```
 
-#### 5. Start Developing
+#### 4. Start Developing
 
 Create new modules using the module creation script:
 
@@ -176,13 +154,6 @@ Options:
 - Core Library (compose/non-compose)
 - Feature Module
 - Custom path
-
-#### `remove-git.sh`
-Removes Git history for a fresh start.
-
-```bash
-./scripts/remove-git.sh
-```
 
 ### CI/CD
 
@@ -266,7 +237,6 @@ Contributions are welcome! Please feel free to submit issues and pull requests.
 - **自動化スクリプト**:
   - `convert-project.sh` - テンプレートをプロジェクトに変換
   - `create-module.sh` - 対話的に新規モジュールを生成
-  - `remove-git.sh` - Git履歴のクリーンアップ
 - **コード品質**: Composeルールと自動フォーマット対応のDetekt
 - **CI/CD**: テストと静的解析用のGitHub Actionsワークフロー
 
@@ -328,28 +298,7 @@ cd android-template
 - テーマ名（例：`MyApp`）
 - Applicationクラス名（例：`MyAppApplication`）
 
-#### 3. Git履歴の削除（オプション）
-
-新しいプロジェクトとしてクリーンなGit履歴で始めたい場合：
-
-```bash
-./scripts/remove-git.sh
-```
-
-このスクリプトは：
-- テンプレートのGit履歴を削除
-- 新しいリポジトリとして始められる
-- 実行後に自動削除される
-
-実行後、新しいGitリポジトリを初期化：
-
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-```
-
-#### 4. 同期とビルド
+#### 3. 同期とビルド
 
 Android Studioでプロジェクトを開き、Gradleを同期：
 
@@ -357,7 +306,7 @@ Android Studioでプロジェクトを開き、Gradleを同期：
 ./gradlew clean build
 ```
 
-#### 5. 開発開始
+#### 4. 開発開始
 
 モジュール作成スクリプトで新しいモジュールを作成：
 
@@ -413,13 +362,6 @@ android-template/
 - Coreライブラリ（Compose有/無）
 - Featureモジュール
 - カスタムパス
-
-#### `remove-git.sh`
-Git履歴を削除して新しくスタートします。
-
-```bash
-./scripts/remove-git.sh
-```
 
 ### CI/CD
 

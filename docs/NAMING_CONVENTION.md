@@ -110,4 +110,3 @@ android-application = { id = "com.android.application", version.ref = "androidGr
 **命名パターン**: ケバブケース + `.sh`
 - `convert-project.sh`
 - `create-module.sh`
-- `remove-git.sh`
