@@ -66,14 +66,19 @@ Two types of preview annotations for efficient UI development:
 
 ### Quick Start
 
-#### 1. Use This Template
+#### 1. Create Repository from Template
 
-Click "Use this template" on GitHub or clone the repository:
+Create a new repository from this template on GitHub:
 
-```bash
-git clone https://github.com/kei-1111/android-template.git
-cd android-template
-```
+1. Click the **"Use this template"** button at the top of this repository
+2. Choose **"Create a new repository"**
+3. Enter your repository name and settings
+4. Click **"Create repository"**
+5. Clone your new repository locally:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+   cd YOUR_REPO_NAME
+   ```
 
 #### 2. Convert to Your Project
 
@@ -274,14 +279,19 @@ Contributions are welcome! Please feel free to submit issues and pull requests.
 
 ### クイックスタート
 
-#### 1. テンプレートを使用
+#### 1. テンプレートからリポジトリを作成
 
-GitHubでリポジトリをクローン：
+GitHubでこのテンプレートから新しいリポジトリを作成：
 
-```bash
-git clone https://github.com/kei-1111/android-template.git
-cd android-template
-```
+1. このリポジトリの上部にある **"Use this template"** ボタンをクリック
+2. **"Create a new repository"** を選択
+3. リポジトリ名と設定を入力
+4. **"Create repository"** をクリック
+5. 新しいリポジトリをローカルにクローン：
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+   cd YOUR_REPO_NAME
+   ```
 
 #### 2. プロジェクトに変換
 
