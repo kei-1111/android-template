@@ -23,6 +23,7 @@ A modern and scalable Android application template. Provides production-ready mu
 #### 🏗️ Modern Architecture
 - **Modular Structure**: Clean separation with `app`, `core`, and `feature` modules
 - **Convention Plugins**: Reusable Gradle configuration with type-safe accessors
+- **Dependency Injection**: Koin for lightweight DI without annotation processing
 - **Build Optimization**: Parallel execution, configuration cache, and optimized R classes
 
 #### 🔧 Developer Tools
@@ -61,6 +62,7 @@ Two types of preview annotations for efficient UI development:
 - **Min SDK**: 29 (Android 10)
 - **Target SDK**: 36
 - **Dependency Injection**: Koin 4.1.1
+- **Navigation**: Navigation Compose 2.9.5
 - **Serialization**: Kotlinx Serialization 1.9.0
 - **Code Quality**: Detekt 1.23.8 with Compose rules
 
@@ -238,6 +240,7 @@ Contributions are welcome! Please feel free to submit issues and pull requests.
 #### 🏗️ モダンなアーキテクチャ
 - **モジュール構造**: `app`、`core`、`feature`モジュールによる明確な分離
 - **Convention Plugins**: 型安全なアクセサによる再利用可能なGradle設定
+- **依存性注入**: アノテーション処理不要の軽量DIとしてKoinを使用
 - **ビルド最適化**: 並列実行、設定キャッシュ、最適化されたRクラス
 
 #### 🔧 開発者ツール
@@ -276,6 +279,7 @@ Contributions are welcome! Please feel free to submit issues and pull requests.
 - **Min SDK**: 29（Android 10）
 - **Target SDK**: 36
 - **依存性注入**: Koin 4.1.1
+- **ナビゲーション**: Navigation Compose 2.9.5
 - **シリアライゼーション**: Kotlinx Serialization 1.9.0
 - **コード品質**: Detekt 1.23.8（Composeルール含む）
 
