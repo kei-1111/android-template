@@ -225,8 +225,6 @@ done
 if [ -f "$PROJECT_ROOT/scripts/create-module.sh" ]; then
     echo "  Updating: scripts/create-module.sh"
     replace_in_file "$PROJECT_ROOT/scripts/create-module.sh" "$OLD_PACKAGE" "$NEW_PACKAGE"
-    # Also update hardcoded BASE_PACKAGE value (in case it differs from OLD_PACKAGE)
-    replace_in_file "$PROJECT_ROOT/scripts/create-module.sh" "BASE_PACKAGE=\".*\"" "BASE_PACKAGE=\"$NEW_PACKAGE\""
     # Update plugin IDs in plugin selections
     replace_in_file "$PROJECT_ROOT/scripts/create-module.sh" "${OLD_PLUGIN_ID}\\." "${NEW_PLUGIN_ID}."
 fi
@@ -237,17 +235,11 @@ fi
 # Replace in CLAUDE.md
 if [ -f "$PROJECT_ROOT/CLAUDE.md" ]; then
     echo "  Updating: CLAUDE.md"
-    # Convert package names to directory paths for file path replacements
-    OLD_PACKAGE_PATH_CLAUDE="${OLD_PACKAGE//.//}"
-    NEW_PACKAGE_PATH_CLAUDE="${NEW_PACKAGE//.//}"
-    # Replace directory paths first (longer/more specific pattern)
-    replace_in_file "$PROJECT_ROOT/CLAUDE.md" "$OLD_PACKAGE_PATH_CLAUDE" "$NEW_PACKAGE_PATH_CLAUDE"
-    # Then replace package names (dot-separated)
-    replace_in_file "$PROJECT_ROOT/CLAUDE.md" "$OLD_PACKAGE" "$NEW_PACKAGE"
-    replace_in_file "$PROJECT_ROOT/CLAUDE.md" "$OLD_PLUGIN_ID" "$NEW_PLUGIN_ID"
-    # Replace theme name (be careful with order - longer strings first)
+    # Replace plugin IDs only in plugin ID format (xxx.android. or xxx.detekt) to avoid double replacement
+    replace_in_file "$PROJECT_ROOT/CLAUDE.md" "${OLD_PLUGIN_ID}\\.android\\." "${NEW_PLUGIN_ID}.android."
+    replace_in_file "$PROJECT_ROOT/CLAUDE.md" "${OLD_PLUGIN_ID}\\.detekt" "${NEW_PLUGIN_ID}.detekt"
+    # Replace theme name only with Theme suffix to avoid double replacement
     replace_in_file "$PROJECT_ROOT/CLAUDE.md" "${OLD_THEME_NAME}Theme" "${NEW_THEME_NAME}Theme"
-    replace_in_file "$PROJECT_ROOT/CLAUDE.md" "$OLD_THEME_NAME" "$NEW_THEME_NAME"
 fi
 
 echo -e "${GREEN}✓ Package name replacement complete${NC}"
@@ -357,18 +349,18 @@ echo -e "${YELLOW}Next steps:${NC}"
 if [ "$CURRENT_DIR_NAME" != "$NEW_PROJECT_NAME" ]; then
     echo "  1. Rename the root project directory (see commands above)"
     echo "  2. Sync your Gradle project in Android Studio"
-    echo "  3. Run a clean build: ${BLUE}./gradlew clean build${NC}"
+    echo -e "  3. Run a clean build: ${BLUE}./gradlew clean build${NC}"
     echo "  4. Verify all modules compile successfully"
     echo "  5. Update README.md with your project information"
-    echo "  6. Initialize Git repository (if needed):"
-    echo "     ${BLUE}git init && git add . && git commit -m \"Initial commit\"${NC}"
+    echo "  6. Commit the converted changes:"
+    echo -e "     ${BLUE}git add . && git commit -m \"chore: convert from template to ${NEW_PROJECT_NAME}\"${NC}"
 else
     echo "  1. Sync your Gradle project in Android Studio"
-    echo "  2. Run a clean build: ${BLUE}./gradlew clean build${NC}"
+    echo -e "  2. Run a clean build: ${BLUE}./gradlew clean build${NC}"
     echo "  3. Verify all modules compile successfully"
     echo "  4. Update README.md with your project information"
-    echo "  5. Initialize Git repository (if needed):"
-    echo "     ${BLUE}git init && git add . && git commit -m \"Initial commit\"${NC}"
+    echo "  5. Commit the converted changes:"
+    echo -e "     ${BLUE}git add . && git commit -m \"chore: convert from template to ${NEW_PROJECT_NAME}\"${NC}"
 fi
 echo ""
 echo -e "${YELLOW}Project converted:${NC}"
