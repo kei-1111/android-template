@@ -48,7 +48,8 @@ validate_project_name() {
 # Function: Validate plugin ID
 validate_plugin_id() {
     local id=$1
-    if [[ ! $id =~ ^[a-z][a-z0-9]*$ ]]; then
+    # Allow dot-separated segments (e.g., newsflow.android)
+    if [[ ! $id =~ ^[a-z][a-z0-9]*(\.[a-z][a-z0-9]*)*$ ]]; then
         return 1
     fi
     return 0
@@ -93,14 +94,14 @@ echo ""
 
 # Collect input: New plugin ID
 echo -e "${GREEN}3. New Convention Plugin ID${NC}"
-echo "   Format: myapp (lowercase, no special characters)"
+echo "   Format: myapp or myapp.android (lowercase, dot-separated allowed)"
 echo "   Current: ${OLD_PLUGIN_ID}"
 while true; do
     read -p "   Enter new plugin ID: " NEW_PLUGIN_ID
     if validate_plugin_id "$NEW_PLUGIN_ID"; then
         break
     else
-        echo -e "${RED}   ✗ Invalid format. Use lowercase letters and numbers only.${NC}"
+        echo -e "${RED}   ✗ Invalid format. Use lowercase letters, numbers, and dots only.${NC}"
     fi
 done
 echo ""
@@ -166,6 +167,21 @@ echo ""
 echo -e "${GREEN}Starting conversion...${NC}"
 echo ""
 
+# Create escaped versions of plugin IDs for use in sed regex patterns
+OLD_PLUGIN_ID_ESCAPED=$(echo "$OLD_PLUGIN_ID" | sed 's/[.*[\^$/\\]/\\&/g')
+NEW_PLUGIN_ID_ESCAPED=$(echo "$NEW_PLUGIN_ID" | sed 's/[.*[\^$/\\]/\\&/g')
+
+# Create hyphenated versions for use in libs.versions.toml (e.g., myapp.android → myapp-android)
+OLD_PLUGIN_ID_HYPHENATED="${OLD_PLUGIN_ID//./-}"
+NEW_PLUGIN_ID_HYPHENATED="${NEW_PLUGIN_ID//./-}"
+
+# Function: Escape special characters for sed regex
+escape_for_sed() {
+    local str=$1
+    # Escape special regex characters: . * [ ] ^ $ \ /
+    echo "$str" | sed 's/[.*[\^$/\\]/\\&/g'
+}
+
 # Function: Replace in file
 replace_in_file() {
     local file=$1
@@ -188,7 +204,8 @@ echo -e "${BLUE}[1/4] Replacing package names in files...${NC}"
 find "$PROJECT_ROOT" -type f -name "*.kt" | while read file; do
     echo "  Updating: $file"
     replace_in_file "$file" "$OLD_PACKAGE" "$NEW_PACKAGE"    # Also replace plugin IDs in string literals (e.g., apply("androidtemplate.detekt"))
-    replace_in_file "$file" "\"${OLD_PLUGIN_ID}." "\"${NEW_PLUGIN_ID}."
+    # Use escaped version to handle dots in plugin ID correctly
+    replace_in_file "$file" "\"${OLD_PLUGIN_ID_ESCAPED}\\." "\"${NEW_PLUGIN_ID}."
 done
 
 # Replace in build files
@@ -196,13 +213,20 @@ find "$PROJECT_ROOT" -type f -name "build.gradle.kts" | while read file; do
     echo "  Updating: $file"
     replace_in_file "$file" "$OLD_PACKAGE" "$NEW_PACKAGE"
     # Replace plugin IDs only in plugin references (libs.plugins.xxx)
-    replace_in_file "$file" "libs\\.plugins\\.${OLD_PLUGIN_ID}" "libs.plugins.${NEW_PLUGIN_ID}"
+    # Use escaped version to handle dots in plugin ID correctly
+    replace_in_file "$file" "libs\\.plugins\\.${OLD_PLUGIN_ID_ESCAPED}" "libs.plugins.${NEW_PLUGIN_ID}"
 done
 
 # Replace in libs.versions.toml
 if [ -f "$PROJECT_ROOT/gradle/libs.versions.toml" ]; then
     echo "  Updating: gradle/libs.versions.toml"
-    replace_in_file "$PROJECT_ROOT/gradle/libs.versions.toml" "$OLD_PLUGIN_ID" "$NEW_PLUGIN_ID"
+    # Replace hyphenated plugin names (e.g., androidtemplate-android → myapp-android-android)
+    # This handles the plugin definition names (keys) in the toml file
+    replace_in_file "$PROJECT_ROOT/gradle/libs.versions.toml" "${OLD_PLUGIN_ID_HYPHENATED}-" "${NEW_PLUGIN_ID_HYPHENATED}-"
+    # Replace dot-separated plugin IDs (e.g., androidtemplate.android → myapp.android.android)
+    # This handles the actual plugin IDs (values) in the toml file
+    # Use escaped version to handle dots in plugin ID correctly
+    replace_in_file "$PROJECT_ROOT/gradle/libs.versions.toml" "${OLD_PLUGIN_ID_ESCAPED}\\." "${NEW_PLUGIN_ID}."
 fi
 
 # Replace in settings.gradle.kts
@@ -226,7 +250,8 @@ if [ -f "$PROJECT_ROOT/scripts/create-module.sh" ]; then
     echo "  Updating: scripts/create-module.sh"
     replace_in_file "$PROJECT_ROOT/scripts/create-module.sh" "$OLD_PACKAGE" "$NEW_PACKAGE"
     # Update plugin IDs in plugin selections
-    replace_in_file "$PROJECT_ROOT/scripts/create-module.sh" "${OLD_PLUGIN_ID}\\." "${NEW_PLUGIN_ID}."
+    # Use escaped version to handle dots in plugin ID correctly
+    replace_in_file "$PROJECT_ROOT/scripts/create-module.sh" "${OLD_PLUGIN_ID_ESCAPED}\\." "${NEW_PLUGIN_ID}."
 fi
 
 # scripts/README.md is documentation for the conversion script itself
@@ -236,8 +261,9 @@ fi
 if [ -f "$PROJECT_ROOT/CLAUDE.md" ]; then
     echo "  Updating: CLAUDE.md"
     # Replace plugin IDs only in plugin ID format (xxx.android. or xxx.detekt) to avoid double replacement
-    replace_in_file "$PROJECT_ROOT/CLAUDE.md" "${OLD_PLUGIN_ID}\\.android\\." "${NEW_PLUGIN_ID}.android."
-    replace_in_file "$PROJECT_ROOT/CLAUDE.md" "${OLD_PLUGIN_ID}\\.detekt" "${NEW_PLUGIN_ID}.detekt"
+    # Use escaped version to handle dots in plugin ID correctly
+    replace_in_file "$PROJECT_ROOT/CLAUDE.md" "${OLD_PLUGIN_ID_ESCAPED}\\.android\\." "${NEW_PLUGIN_ID}.android."
+    replace_in_file "$PROJECT_ROOT/CLAUDE.md" "${OLD_PLUGIN_ID_ESCAPED}\\.detekt" "${NEW_PLUGIN_ID}.detekt"
     # Replace theme name only with Theme suffix to avoid double replacement
     replace_in_file "$PROJECT_ROOT/CLAUDE.md" "${OLD_THEME_NAME}Theme" "${NEW_THEME_NAME}Theme"
 fi
